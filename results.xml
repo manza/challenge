@@ -1,0 +1,2 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,Hostname,IdleTime,Connect
+1505409578162,6,HTTP Request,200,HTTP/1.1 200,Thread Group 1-1,text,true,,266,0,1,1,http://localhost:8000/statistics,6,PCSOR272,0,0
