@@ -1,2 +1,12 @@
 timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,Hostname,IdleTime,Connect
-1505409578162,6,HTTP Request,200,HTTP/1.1 200,Thread Group 1-1,text,true,,266,0,1,1,http://localhost:8000/statistics,6,PCSOR272,0,0
+1505412251833,17,HTTP Request,204,HTTP/1.1 204,Thread Group 1-1,,true,,140,0,1,1,http://localhost:8000/transactions,17,PCSOR272,0,0
+1505412895973,5,HTTP Request,204,HTTP/1.1 204,Thread Group 1-1,,true,,140,0,1,1,http://localhost:8000/transactions,5,PCSOR272,0,0
+1505412921530,3,HTTP Request,204,HTTP/1.1 204,Thread Group 1-1,,true,,140,0,1,1,http://localhost:8000/transactions,3,PCSOR272,0,0
+1505412958267,4,HTTP Request,204,HTTP/1.1 204,Thread Group 1-1,,true,,140,0,1,1,http://localhost:8000/transactions,4,PCSOR272,0,0
+1505412990575,5,HTTP Request,204,HTTP/1.1 204,Thread Group 1-1,,true,,140,0,1,1,http://localhost:8000/transactions,5,PCSOR272,0,0
+1505413131372,5,HTTP Request,204,HTTP/1.1 204,Thread Group 1-1,,true,,140,0,1,1,http://localhost:8000/transactions,5,PCSOR272,0,0
+1505413150570,3,HTTP Request,204,HTTP/1.1 204,Thread Group 1-1,,true,,140,0,1,1,http://localhost:8000/transactions,3,PCSOR272,0,0
+1505413234532,5,HTTP Request,204,HTTP/1.1 204,Thread Group 1-1,,true,,140,0,1,1,http://localhost:8000/transactions,5,PCSOR272,0,0
+1505413359598,5,HTTP Request,204,HTTP/1.1 204,Thread Group 1-1,,true,,140,0,1,1,http://localhost:8000/transactions,5,PCSOR272,0,0
+1505413499622,100,HTTP Request,204,,Thread Group 1-1,,true,,141,240,1,1,http://localhost:8000/transactions,0,PCSOR272,0,73
+1505413674669,6,HTTP Request,204,HTTP/1.1 204,Thread Group 1-1,,true,,140,0,1,1,http://localhost:8000/transactions,6,PCSOR272,0,0

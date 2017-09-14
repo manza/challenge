@@ -39,6 +39,8 @@ public class TransactionController {
 
         transactionRepositoryInMemory.persistTransaction(transaction);
 
+        System.out.println("new transaction created");
+
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().buildAndExpand(transaction.getAmount()).toUri();
         return ResponseEntity.created(location).build();
     }
