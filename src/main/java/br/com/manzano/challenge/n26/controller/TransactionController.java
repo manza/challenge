@@ -2,7 +2,6 @@ package br.com.manzano.challenge.n26.controller;
 
 import br.com.manzano.challenge.n26.model.Transaction;
 import br.com.manzano.challenge.n26.repository.TransactionRepository;
-import br.com.manzano.challenge.n26.repository.TransactionRepositoryInMemory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.net.URI;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Date;
 
 @RestController
 @RequestMapping("/transactions")
@@ -39,14 +37,12 @@ public class TransactionController {
 
         transactionRepositoryInMemory.persistTransaction(transaction);
 
-        System.out.println("new transaction created");
-
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().buildAndExpand(transaction.getAmount()).toUri();
         return ResponseEntity.created(location).build();
     }
 
     private long getNumberOfSeconds(Transaction transaction) {
-        Instant transactionInstant = transaction.getTimestamp();
+        Instant transactionInstant = transaction.getTimestamp().toInstant();
         Instant rightNow = Instant.now();
         Duration duration = Duration.between(transactionInstant, rightNow);
         return duration.getSeconds();

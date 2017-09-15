@@ -1,17 +1,16 @@
 package br.com.manzano.challenge.n26.model;
 
-import java.time.Instant;
 import java.util.Date;
 
 public class Transaction {
 
     private double amount;
-    private Instant timestamp;
+    private Date timestamp;
 
     public Transaction() {
     }
 
-    public Transaction(double amount, Instant timestamp) {
+    public Transaction(double amount, Date timestamp) {
         this.amount = amount;
         this.timestamp = timestamp;
     }
@@ -24,11 +23,11 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public Instant getTimestamp() {
+    public Date getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Instant timestamp) {
+    public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
 

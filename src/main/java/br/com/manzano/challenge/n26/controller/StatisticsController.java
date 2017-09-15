@@ -1,7 +1,7 @@
 package br.com.manzano.challenge.n26.controller;
 
+import br.com.manzano.challenge.n26.model.Statistic;
 import br.com.manzano.challenge.n26.util.StatisticManager;
-import br.com.manzano.challenge.n26.model.StatisticsInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,17 +19,17 @@ public class StatisticsController {
     StatisticManager statisticManager;
 
     @RequestMapping(method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<StatisticsInfo> statistics(HttpServletResponse response) {
+    public ResponseEntity<Statistic> statistics(HttpServletResponse response) {
         // Allow cors
         response.addHeader("Access-Control-Allow-Methods", "GET");
         response.addHeader("Access-Control-Allow-Origin", "*");
 
-        StatisticsInfo statisticsInfo = new StatisticsInfo();
+        Statistic statisticsInfo = new Statistic();
         statisticsInfo.setSum(statisticManager.getSum());
         statisticsInfo.setAvg(statisticManager.getAvg());
         statisticsInfo.setMin(statisticManager.getMin());
         statisticsInfo.setMax(statisticManager.getMax());
-        statisticsInfo.setCount(statisticManager.getCount());
+        statisticsInfo.setCnt(statisticManager.getCount());
 
         return ResponseEntity.ok(statisticsInfo);
     }

@@ -1,7 +1,7 @@
 package br.com.manzano.challenge.n26.repository;
 
-import br.com.manzano.challenge.n26.util.StatisticManager;
 import br.com.manzano.challenge.n26.model.Transaction;
+import br.com.manzano.challenge.n26.util.StatisticManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;

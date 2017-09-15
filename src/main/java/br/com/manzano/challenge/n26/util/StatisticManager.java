@@ -4,18 +4,10 @@ import br.com.manzano.challenge.n26.model.Statistic;
 import br.com.manzano.challenge.n26.model.Transaction;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.time.temporal.TemporalField;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.OptionalDouble;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Component
 public class StatisticManager {
@@ -34,7 +26,7 @@ public class StatisticManager {
             throw new IllegalArgumentException("Invalid Transaction");
         }
 
-        LocalDateTime dateTime = LocalDateTime.ofEpochSecond(transaction.getTimestamp().getEpochSecond(), 0, ZoneOffset.UTC);
+        LocalDateTime dateTime = LocalDateTime.ofEpochSecond(transaction.getTimestamp().toInstant().getEpochSecond(), 0, ZoneOffset.UTC);
         int givenSecond = dateTime.getSecond();
 
         Statistic givenStat = (Statistic)statsFromLastMinute.get(givenSecond);
@@ -56,12 +48,20 @@ public class StatisticManager {
     }
 
     private synchronized double manageAvg(Statistic statistic, Transaction transaction) {
+        if (statistic.getCnt() <= 1) {
+            return transaction.getAmount();
+        }
+
         double newAvg = statistic.getSum() / statistic.getCnt();
 
         return newAvg;
     }
 
     private synchronized double manageMin(Statistic statistic, Transaction transaction) {
+        if (statistic.getCnt() <= 1) {
+            return transaction.getAmount();
+        }
+
         double curMin = statistic.getMin();
         if (transaction.getAmount() < curMin) {
             curMin = transaction.getAmount();
@@ -71,6 +71,10 @@ public class StatisticManager {
     }
 
     private synchronized double manageMax(Statistic statistic, Transaction transaction) {
+        if (statistic.getCnt() <= 1) {
+            return transaction.getAmount();
+        }
+
         double curMax = statistic.getMax();
         if (transaction.getAmount() > curMax) {
             curMax = transaction.getAmount();
@@ -89,26 +93,25 @@ public class StatisticManager {
     public double getSum() {
         double sum = 0;
         for(Statistic statistic : statsFromLastMinute.values()) {
-            sum = sum + statistic.getSum();
+            if (statistic.getSum() > 0) {
+                sum = sum + statistic.getSum();
+            }
         }
 
         return sum;
     }
 
     public double getAvg() {
-        double avg = 0;
-        for(Statistic statistic : statsFromLastMinute.values()) {
-            avg = avg + statistic.getAvg();
-        }
-
-        return (avg > 0) ? (avg / 60.0) : 0;
+        return getCount() > 1 ? getSum() / getCount() : 0;
     }
 
     public double getMin() {
         double min = Double.MAX_VALUE;
         for(Statistic statistic : statsFromLastMinute.values()) {
-            if (statistic.getMin() < min) {
-                min = statistic.getMin();
+            if (statistic.getMin() > 0) {
+                if (statistic.getMin() < min) {
+                    min = statistic.getMin();
+                }
             }
         }
 
@@ -118,10 +121,13 @@ public class StatisticManager {
     public double getMax() {
         double max = Double.MIN_VALUE;
         for(Statistic statistic : statsFromLastMinute.values()) {
-           if (statistic.getMax() > max) {
-               max = statistic.getMax();
-           }
+            if (statistic.getMax() > 0) {
+                if (statistic.getMax() > max) {
+                    max = statistic.getMax();
+                }
+            }
         }
+
         return max == Double.MIN_VALUE ? 0 : max;
     }
 
